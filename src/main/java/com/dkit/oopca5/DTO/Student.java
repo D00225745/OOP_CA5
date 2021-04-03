@@ -19,7 +19,7 @@ public class Student
 
         }
 
-        public Student(int caoNumber, String dateOfBirth, String password, String email) {
+        public Student(int caoNumber, String dateOfBirth, String password) {
             this.caoNumber = caoNumber;
             this.dateOfBirth = dateOfBirth;
             this.password = password;
