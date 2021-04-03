@@ -5,25 +5,27 @@ import com.dkit.oopca5.DAO.StudentDaoInterface;
 import com.dkit.oopca5.DTO.Student;
 import com.dkit.oopca5.Exceptions.DaoException;
 
-public class App
-{
-    public static void main(String[] args)
-    {
-        // load students
-        StudentManager studentManager = new StudentManager();
+import java.util.List;
 
-       // Student s = studentManager.getStudent(12345678);
+public class App {
+    public static void main(String[] args) {
 
-        int caoNum = 22223333;
-        String dob = "1999-11-26";
-        String pw = "w3e4r5";
-        studentManager.addStudent(new Student(caoNum,dob,pw));
+        StudentDaoInterface studentDao = new MySqlStudentDao();
 
-        studentManager.addStudent(expected);
+        try {
+            int caoNum = 55551111;
+            String dob = "1999-01-22";
+            String pw = "X3e4r5";
+            studentDao.registerStudent(new Student(caoNum, dob, pw));
 
-        Student actual = studentManager.getStudent(22223333);
+            Student result = studentDao.findStudent(55551111);
+            System.out.println("Student::" + result);
 
-        assertTrue(actual.equals(expected));
+            List<Student> studentList = studentDao.findAllStudents();
 
+        } catch (DaoException e) {
+            e.printStackTrace();
+        }
     }
+
 }
