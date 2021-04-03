@@ -2,14 +2,12 @@ package com.dkit.oopca5.DAO;
 
 import com.dkit.oopca5.Exceptions.DaoException;
 
-import javax.xml.transform.Result;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 
-public class MySqulUserDao extends MySqlDao implements UserDaoInterface
+public class MySqlStudentDao extends MySqlDao implements StudentDaoInterface
 {
-
     @Override
     public List<User> findAllUsers() throws DaoException
     {
@@ -72,5 +70,9 @@ public class MySqulUserDao extends MySqlDao implements UserDaoInterface
 
         return users;
     }
+
+
+
+
 
 }
