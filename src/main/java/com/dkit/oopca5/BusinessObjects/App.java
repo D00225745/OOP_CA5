@@ -12,14 +12,18 @@ public class App
         // load students
         StudentManager studentManager = new StudentManager();
 
-        Student s = studentManager.getStudent(12345678);
+       // Student s = studentManager.getStudent(12345678);
 
         int caoNum = 22223333;
         String dob = "1999-11-26";
         String pw = "w3e4r5";
         studentManager.addStudent(new Student(caoNum,dob,pw));
 
-        System.out.println("Student: 12345678:" + s);
+        studentManager.addStudent(expected);
+
+        Student actual = studentManager.getStudent(22223333);
+
+        assertTrue(actual.equals(expected));
 
     }
 }

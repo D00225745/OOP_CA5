@@ -1,5 +1,7 @@
 package com.dkit.oopca5.DTO;
 
+import java.util.Objects;
+
 public class Student
 {
 
@@ -63,6 +65,19 @@ public class Student
                     '}';
         }
 
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Student student = (Student) o;
+        return caoNumber == student.caoNumber && dateOfBirth.equals(student.dateOfBirth) && password.equals(student.password);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(caoNumber, dateOfBirth, password);
+    }
 }
 
 
