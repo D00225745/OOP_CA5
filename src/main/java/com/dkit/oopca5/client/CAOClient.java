@@ -17,11 +17,11 @@ public class CAOClient
     {
         public static void main( String[] args )
         {
-            System.out.println( "CAO Online - CA4" );
-            new App().start();
+            System.out.println( "CAO Online - CA5" );
+            new CAOClient().start();
 
             Map<Integer, Student> studentMap = new HashMap<>();
-            loadStudentsFromFile(studentMap, "students.txt");
+            loadStudentsFromFile(studentMap, "databasedump.sql");
             printStudentMap(studentMap);
             saveStudentsToFile(studentMap);
 
