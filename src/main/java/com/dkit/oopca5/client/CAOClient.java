@@ -14,7 +14,7 @@ import java.util.Scanner;
 
 public class CAOClient
 {
-    {
+    
         public static void main( String[] args )
         {
             System.out.println( "CAO Online - CA5" );
@@ -84,7 +84,8 @@ public class CAOClient
 
 
 
-        private void start() {
+        private void start()
+    {
 
         System.out.println("The Student Course Listing Menu starts here...?..");
         // load students
