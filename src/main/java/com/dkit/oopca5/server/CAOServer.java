@@ -10,5 +10,14 @@ package com.dkit.oopca5.server;
 
 public class CAOServer
 {
-    
+    public static void main(String[] args)
+    {
+        System.out.println("Database access");
+        UserDaoInterface UserDao = new MySqlUserDao();
+
+        getAllUsers
+    }
+
+
 }
+

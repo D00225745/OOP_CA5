@@ -10,6 +10,9 @@ package com.dkit.oopca5.client;
 
 import com.dkit.oopca5.core.Student;
 import com.dkit.oopca5.core.MainMenu;
+import com.dkit.oopca5.server.MySqlUserDao;
+import com.dkit.oopca5.server.UserDaoInterface;
+
 import java.io.*;
 import java.util.HashMap;
 import java.util.InputMismatchException;
