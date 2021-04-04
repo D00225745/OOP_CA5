@@ -67,9 +67,9 @@ public class CAOClient
                     String name = data[1];
                     String dateOfBirth = data[2];
                     String password = data[3];
-                    String email = data[4];
 
-                    Student readInStudent = new Student(caoNumber, name, dateOfBirth, password, email);
+
+                    Student readInStudent = new Student(caoNumber, name, dateOfBirth, password);
                     studentMap.put(caoNumber, readInStudent);
                 }
             }
@@ -130,7 +130,7 @@ public class CAOClient
             studentCopy2.setName("Raum");
             studentCopy2.setDayOfBirth("2003-04-18");
             studentCopy2.setPassword("BigMac");
-            studentCopy2.setEmail("CopyEmailTest");
+
             System.out.println(studentCopy1);
             System.out.println(studentCopy2);
         }
