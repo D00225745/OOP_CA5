@@ -24,9 +24,11 @@ public class MySqlDAO
             con = DriverManager.getConnection(url, username, password);
         }
 
-        catch (ClassNotFoundException exl)
+        catch (ClassNotFoundException cnfe)
         {
-
+            System.out.println("Class not found " +cnfe.getMessage());
         }
+
+        System.out.println("Connected Succesfully");
     }
 }
