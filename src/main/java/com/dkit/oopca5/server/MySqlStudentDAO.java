@@ -7,7 +7,7 @@ import java.util.List;
 
 //Berk Tatar D00225745 and Emmanuel Francis D00228281
 
-public class MySqlStudentDAO extends MySqlDAO implements StudentDaoInterface
+public class MySqlUserDao extends MySqlDAO implements StudentDaoInterface
 {
     @Override
     public List<Student> findAllStudents() throws DaoException
@@ -71,6 +71,7 @@ public class MySqlStudentDAO extends MySqlDAO implements StudentDaoInterface
 
         return users;
     }
+
 
 
 
