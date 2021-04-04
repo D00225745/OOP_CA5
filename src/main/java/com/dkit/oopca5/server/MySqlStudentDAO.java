@@ -4,7 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 
-public class MySqlUserDao extends MySqlDAO implements StudentDaoInterface
+public class MySqlStudentDAO extends MySqlDAO implements StudentDaoInterface
 {
     @Override
     public List<Student> findAllStudents() throws DaoException
