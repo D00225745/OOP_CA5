@@ -4,7 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 
-public class MySqlStudentDao extends MySqlDao implements StudentDaoInterface
+public class MySqlUserDao extends MySqlDAO implements StudentDaoInterface
 {
     @Override
     public List<Student> findAllStudents() throws DaoException
@@ -18,7 +18,7 @@ public class MySqlStudentDao extends MySqlDao implements StudentDaoInterface
         {
             con = this.getConnection();
 
-            String query = "SELECT * FROM STUDENT WHERE STUDENTNAME =? AND PASSWORD =?";
+            String query = "SELECT * FROM STUDENT WHERE CAONUMBER =? AND PASSWORD =?";
             ps = con.prepareStatement(query);
 
             rs = ps.executeQuery();
