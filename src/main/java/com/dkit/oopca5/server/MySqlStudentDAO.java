@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 
-//Berk Tatar D00225745 and Emmanuel Francis D00228281
+//Berk Tatar D0022574 and Emmanuel Francis D00228281
 
 public class MySqlStudentDAO extends MySqlDAO implements StudentDaoInterface
 {
