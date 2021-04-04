@@ -1,6 +1,6 @@
 package com.dkit.oopca5.core;
 
-//Berk Tatar and Emmanuel Francis
+//Berk Tatar D00225745 and Emmanuel Francis D00228281
 
 
 public enum MainMenu

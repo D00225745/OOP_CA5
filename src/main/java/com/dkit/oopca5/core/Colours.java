@@ -3,7 +3,7 @@ package com.dkit.oopca5.core;
 /*The core package should contain all of the classes
   that are shared between the Client and Server
  */
-//Berk Tatar and Emmanuel Francis
+//Berk Tatar D00225745 and Emmanuel Francis D00228281
 
 
 public class Colours

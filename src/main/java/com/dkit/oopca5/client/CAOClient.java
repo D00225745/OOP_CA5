@@ -6,7 +6,7 @@ package com.dkit.oopca5.client;
 /* The CAOClient offers students a menu and sends messages to the server using TCP Sockets
  */
 
-//Berk Tatar and Emmanuel Francis
+//Berk Tatar D00225745 and Emmanuel Francis D00228281
 
 import java.io.*;
 import java.util.HashMap;
