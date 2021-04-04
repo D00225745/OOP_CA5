@@ -8,6 +8,8 @@ package com.dkit.oopca5.server;
 //Berk Tatar D00225745 and Emmanuel Francis D00228281
 
 
+import com.dkit.oopca5.exception.DaoException;
+
 public class CAOServer
 {
     public static void main(String[] args)
@@ -16,12 +18,34 @@ public class CAOServer
         UserDaoInterface UserDao = new MySqlUserDao();
 
         getAllUsers(UserDao);
-        getSpecificUser(UserDao, "Berk", "catNdogs");
+        //getSpecificUser(UserDao, "Berk", "catNdogs");
     }
 
     private static void getAllUsers(UserDaoInterface UserDao)
     {
+        try
+        {
+            List<User> users = UserDao.findAllUsers();
+            printUsers(users);
+        }
+        catch(DaoException daoe)
+        {
+            System.out.println(daoe.getMessage());
+        }
 
+    }
+
+    private static void printUsers(List<User> users)
+    {
+        if(users.isEmpty())
+        {
+            System.out.println("There are no users");
+        }
+
+        for(User user : users)
+        {
+            System.out.println(user);
+        }
     }
 
 
