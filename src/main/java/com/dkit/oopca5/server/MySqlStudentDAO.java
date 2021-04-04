@@ -4,6 +4,9 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 
+
+//Berk Tatar and Emmanuel Francis
+
 public class MySqlStudentDAO extends MySqlDAO implements StudentDaoInterface
 {
     @Override

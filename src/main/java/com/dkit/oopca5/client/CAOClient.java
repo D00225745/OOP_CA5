@@ -6,6 +6,8 @@ package com.dkit.oopca5.client;
 /* The CAOClient offers students a menu and sends messages to the server using TCP Sockets
  */
 
+//Berk Tatar and Emmanuel Francis
+
 import java.io.*;
 import java.util.HashMap;
 import java.util.InputMismatchException;
@@ -14,7 +16,7 @@ import java.util.Scanner;
 
 public class CAOClient
 {
-    
+
         public static void main( String[] args )
         {
             System.out.println( "CAO Online - CA5" );

@@ -4,6 +4,8 @@ package com.dkit.oopca5.server;
 All of the database functionality should be here. You will need a DAO for each table that you are interacting with in the database
  */
 
+//Berk Tatar and Emmanuel Francis
+
 import java.sql.DriverManager;
 
 public class MySqlDAO

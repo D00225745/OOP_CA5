@@ -1,5 +1,8 @@
 package com.dkit.oopca5.core;
 
+//Berk Tatar and Emmanuel Francis
+
+
 public enum MainMenu
 {
     QUIT_APPLICATION,
