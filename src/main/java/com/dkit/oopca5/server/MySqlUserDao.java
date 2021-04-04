@@ -6,7 +6,7 @@ import java.util.List;
 
 public class MySqlUserDao
 {
-    public class MySqulUserDao extends MySqlDao implements UserDaoInterface
+    public class MySqulUserDao extends MySqlDAO implements UserDaoInterface
     {
 
         @Override

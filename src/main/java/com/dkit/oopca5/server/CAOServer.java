@@ -15,7 +15,13 @@ public class CAOServer
         System.out.println("Database access");
         UserDaoInterface UserDao = new MySqlUserDao();
 
-        getAllUsers
+        getAllUsers(UserDao);
+        getSpecificUser(UserDao, "Berk", "catNdogs");
+    }
+
+    private static void getAllUsers(UserDaoInterface UserDao)
+    {
+
     }
 
 
