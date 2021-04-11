@@ -1,342 +1,189 @@
 package com.dkit.oopca5.client;
 
-/* The client package should contain all code and classes needed to run the Client
- */
-
-/* The CAOClient offers students a menu and sends messages to the server using TCP Sockets
- */
-
-//Berk Tatar D00225745 and Emmanuel Francis D00228281
-
-import com.dkit.oopca5.core.Student;
-import com.dkit.oopca5.core.MainMenu;
-import com.dkit.oopca5.server.MySqlUserDao;
-import com.dkit.oopca5.server.UserDaoInterface;
-
-import java.io.*;
-import java.util.HashMap;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.InputMismatchException;
-import java.util.Map;
 import java.util.Scanner;
 
-public class CAOClient
-{
+import com.dkit.oopca5.core.CAOService;
 
-    public static void main(String[] args)
-    {
-        System.out.println( "CAO Online - CA5" );
-        new CAOClient().start();
-
-        Map<Integer, Student> studentMap = new HashMap<Integer, Student>();
-        loadStudentsFromFile(studentMap, "databasedump.sql");
-        printStudentMap(studentMap);
-        saveStudentsToFile(studentMap);
-
-
-    }
-
-    //with the student file that I made, after a successful run, the students other than the first one dissappear
-    //Update: names no longer disappear, but 2nd and 3rd students switched places after initial test, but now they seem in place
-
-    private static void saveStudentsToFile(Map<Integer, Student> studentMap)
-    {
-        try(BufferedWriter studentsFile = new BufferedWriter(new FileWriter("students.txt")))
-        {
-            for(Map.Entry<Integer, Student> entry : studentMap.entrySet())
-            {
-                studentsFile.write(entry.getValue().getCaoNumber() + "," + entry.getValue().getName()+ "," + entry.getValue().getDayOfBirth() + "," + entry.getValue().getPassword() + "," + entry.getValue().getEmail() + "\n");
-            }
-        } catch (IOException e) {
-            System.out.println("Student information could not be added...");
-        }
-    }
-
-    private static void printStudentMap(Map<Integer, Student> studentMap)
-    {
-        for(Integer key : studentMap.keySet())
-        {
-            System.out.println(studentMap.get(key));
-        }
-    }
-
-    private static void loadStudentsFromFile(Map<Integer, Student> studentMap, String fileToLoad)
-    {
-        try(Scanner studentFile = new Scanner(new BufferedReader(new FileReader("students.txt"))))
-        {
-            String input;
-            while(studentFile.hasNextLine())
-            {
-                input = studentFile.nextLine();
-                String[] data = input.split(",");
-                int caoNumber = Integer.parseInt(data[0]);
-                String name = data[1];
-                String dateOfBirth = data[2];
-                String password = data[3];
-                String email = data[4];
-
-                Student readInStudent = new Student(caoNumber, name, dateOfBirth, password, email);
-                studentMap.put(caoNumber, readInStudent);
-            }
-        }
-
-        catch (FileNotFoundException fne)
-        {
-            System.out.println("Student information could not be loaded...");
-        }
-
-
-    }
-
+public class CAOClient {
+    // kullanıcının menü seçimi ve veri girişi yapabilmesi için
     private static Scanner keyboard = new Scanner(System.in);
 
+    private static String sendRequest(String params) throws UnknownHostException, IOException {
 
+        Socket connection = new Socket(CAOService.HOSTNAME, CAOService.PORT_NUM);
+
+        System.out.println("Connected to server. IP: "
+                + connection.getInetAddress().getHostName());
+
+        InputStream receiver = connection.getInputStream();
+        OutputStream sender = connection.getOutputStream();
+
+        DataInputStream dataReceiver = new DataInputStream(receiver);
+        DataOutputStream dataSender = new DataOutputStream(sender);
+
+        // resimdeki iki yönlü veri trafiği
+        dataSender.writeUTF(params); // servera veri transfer eder
+
+        String response = dataReceiver.readUTF(); // server veri döner
+
+        return response;
+    }
+
+    public static void main(String[] args) {
+        System.out.println("CAO Online - CA5");
+        new CAOClient().start();
+    }
 
     private void start() {
-
-        System.out.println("The Student Course Listing Menu starts here...?..");
-        // load students
-        StudentManager studentManager = new StudentManager();
-        // load courses
-        CourseManager courseManager= new CourseManager();
-
-        doMainMenuLoop(studentManager,courseManager);
-
-
-        // load manager to provide functionality to allow a students
-        // to login and add/update their course selections
-        // This CourseChoicesManager component depends on the
-        // StudentManager and the CourseManager,
-        // so we 'inject' or pass-in these objects.
-        //
-        CourseChoicesManager mgr = new CourseChoicesManager(studentManager, courseManager);
-
-        // display a menu to do things
-        // manual testing of mgr public interface
-
-//        if ( mgr.login(22224444, "xxxx","bbbb") )
-//        {
-//            Student students = mgr.getStudentDetails(22224444);
-//
-//            System.out.println("Student: " + students);
-//        }
-//        else
-//            System.out.println("Not logged in - try again");
-
-
-        //mgr.saveToFile();
-
+        doMainMenuLoop();
     }
 
-    private static void makeDeepCopy(Student studentCopy1)
-    {
-        Student studentCopy2 = new Student(studentCopy1);
-        studentCopy2.setCaoNumber(557);
-        studentCopy2.setName("Raum");
-        studentCopy2.setDayOfBirth("2003-04-18");
-        studentCopy2.setPassword("BigMac");
-        studentCopy2.setEmail("CopyEmailTest");
-        System.out.println(studentCopy1);
-        System.out.println(studentCopy2);
-    }
+    private void doMainMenuLoop() {
 
-    private void doMainMenuLoop(StudentManager studentManager, CourseManager courseManager)
-    {
         boolean loop = true;
-        MainMenu menuOption;
+        int option = -1;
+        MainMenu mainMenuOption;
         boolean loggedIn = false;
         int caoNumber = -1;
-        int option = -1;
-        while(loop)
-        {
+        String password = "";
+
+        while (loop) {
             printMainMenu();
-            try
-            {
+
+            try {
                 option = keyboard.nextInt();
-                if(option < 0 || option >= MainMenu.values().length)
-                {
+
+                if (option < 0 || option >= MainMenu.values().length) {
                     throw new IllegalArgumentException();
                 }
-                keyboard.nextLine();
-                menuOption = MainMenu.values()[option];
-                switch (menuOption)
-                {
+
+                mainMenuOption = MainMenu.values()[option];
+
+                switch (mainMenuOption) {
                     case QUIT_APPLICATION:
                         loop = false;
                         break;
+                    case REGISTER:
+                        System.out.println("CAO Number:");
+                        caoNumber = Integer.parseInt(keyboard.next());
+                        System.out.println("Date of Birth:");
+                        String dateOfBirth = keyboard.next();
+                        System.out.println("password:");
+                        password = keyboard.next();
+
+                        String requestString = MainMenu.REGISTER.toString()
+                                + CAOService.BREAKING_CHARACTER + caoNumber
+                                +  CAOService.BREAKING_CHARACTER + dateOfBirth
+                                +  CAOService.BREAKING_CHARACTER + password;
+
+                        String result = sendRequest(requestString);
+
+                        if("REGISTERED".equals(result)){
+                            System.out.println("User is " + result + " sucessfully.");
+                            continue;
+                        }
+
+                        break;
                     case LOG_IN:
-                        if(!loggedIn)
-                        {
-                            caoNumber = studentManager.logIn();
-                            if(caoNumber != 1)
-                            {
+                        if (!loggedIn) {
+                            System.out.println("CAO Number:");
+                            caoNumber = Integer.parseInt(keyboard.next());
+                            System.out.println("password:");
+                            password = keyboard.next();
+
+                            if (caoNumber != 1) {
                                 loggedIn = true;
                             }
-                        }
-                        else
-                        {
-                            System.out.println("This user is not registered.. please register first...");
+                        } else {
+                            System.out
+                                    .println("This user is not registered.. please register first...");
+                            continue; // sisteme login olamadığı için ana menüye
+                            // geri gönderiyoruz
                         }
                 }
 
-                if(option < 0 || option >= MainMenu.values().length)
-                {
-                    throw new IllegalArgumentException();
-                }
-                //keyboard.nextLine();
-                menuOption = MainMenu.values()[option];
-                switch(menuOption)
-                {
-                    case QUIT_APPLICATION:
-                        loop = false;
-                        break;
-                    case DISPLAY_STUDENT_MENU:
-                        doStudentMenuLoop(studentManager, courseManager);
-                        break;
-                    case DISPLAY_COURSE_MENU:
-                        doCourseMenuLoop(courseManager, courseManager);
-                        break;
-                }
-            }
-            catch(InputMismatchException ime)
-            {
+                // login olmayan kullanıcı buradan sonra ilerleyemez tekrar
+                // while döngüsünün en başına gider ve
+                // ana menü gösterilir
+                if (!loggedIn)
+                    continue;
+
+                doCourseMenuLoop();
+
+            } catch (InputMismatchException ime) {
                 System.out.println("Please enter a valid option");
-                keyboard.nextLine();
-            }
-            catch(IllegalArgumentException iae)
-            {
+            } catch (IllegalArgumentException iae) {
                 System.out.println("Please enter a valid option");
+            } catch (UnknownHostException e) {
+                System.out.println("Cannot connect to server");
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
             }
         }
         System.out.println("Thanks for using the app");
     }
 
-
-
-    private void doStudentMenuLoop(StudentManager studentManager, CourseManager courseManager)
-    {
+    private void doCourseMenuLoop() {
         boolean loop = true;
-        StudentMenu menuOption;
-        int option;
-        while (loop)
-        {
-            printStudentMenu();
-            try
-            {
-                option = keyboard.nextInt();
-                keyboard.nextLine();
-                menuOption = StudentMenu.values()[option];
-                switch (menuOption)
-                {
-                    case QUIT_STUDENT_MENU:
+
+        while (loop) {
+            try {
+                printCourseMenu();
+
+                int option = keyboard.nextInt();
+                CourseMenu courseMenuOption = CourseMenu.values()[option];
+
+                switch (courseMenuOption) {
+                    case QUIT:
                         loop = false;
                         break;
-                    case ADD_STUDENT:
-                        studentManager.addStudent();
+                    case LOGOUT:
+                        // TODO
                         break;
-                    case DELETE_STUDENT:
-                        studentManager.deleteStudent();
+                    case DISPLAY_COURSE:
+                        // TODO
                         break;
-                    case PRINT_STUDENT:
-                        studentManager.printStudent();
+                    case DISPLAY_ALL_COURSES:
+                        // TODO
+                        break;
+                    case DISPLAY_CURRENT_CHOICES:
+                        // TODO
+                        break;
+                    case UPDATE_CURRENT_CHOICES:
+                        // TODO
                         break;
                 }
-            } catch (InputMismatchException ime)
-            {
+            } catch (InputMismatchException ime) {
                 System.out.println("Please enter a valid option");
             }
         }
     }
 
-
-    private void doCourseMenuLoop(CourseManager manager, CourseManager courseManager)
-    {
-        boolean loop = true;
-        CourseMenu menuOption;
-        int option;
-        while (loop)
-        {
-            printCourseMenu();
-            try
-            {
-                option = keyboard.nextInt();
-                keyboard.nextLine();
-                menuOption = CourseMenu.values()[option];
-                switch (menuOption)
-                {
-                    case QUIT_COURSE_MENU:
-                        loop = false;
-                        break;
-                    case ADD_COURSE:
-                        courseManager.addCourse();
-                        break;
-                    case DELETE_COURSE:
-                        courseManager.removeCourse();
-                        break;
-                    case PRINT_COURSE:
-                        courseManager.printCourse();
-                        break;
-                }
-            } catch (InputMismatchException ime)
-            {
-                System.out.println("Please enter a valid option");
-            }
-        }
-    }
-
-
-
-    private void printStudentMenu()
-    {
+    private void printCourseMenu() {
         System.out.println("\n Options to select:");
-        for(int i=0; i < StudentMenu.values().length;i++)
-        {
-            System.out.println("\t" +  i + ". " + StudentMenu.values()[i].toString());
+        for (int i = 0; i < CourseMenu.values().length; i++) {
+            System.out.println("\t" + i + ". "
+                    + CourseMenu.values()[i].toString());
         }
         System.out.print("Enter a number to select the option (0 to quit):>");
     }
 
-
-    private void printCourseMenu()
-    {
+    private void printMainMenu() {
         System.out.println("\n Options to select:");
-        for(int i=0; i < CourseMenu.values().length;i++)
-        {
-            System.out.println("\t" +  i + ". " + CourseMenu.values()[i].toString());
+        for (int i = 0; i < MainMenu.values().length; i++) {
+            System.out.println("\t" + i + ". "
+                    + MainMenu.values()[i].toString());
         }
         System.out.print("Enter a number to select the option (0 to quit):>");
     }
 
-
-
-    private void printMainMenu()
-    {
-        System.out.println("\n Options to select:");
-        for(int i=0; i < MainMenu.values().length;i++)
-        {
-            System.out.println("\t" +  i + ". " + MainMenu.values()[i].toString());
-        }
-        System.out.print("Enter a number to select the option (0 to quit):>");
-    }
-
-    private static void addStudent(CourseChoicesManager mgr)
-    {
-        int studentID = 0;
-        boolean nonRepeatingID = false;
-        while(!nonRepeatingID)
-        {
-            System.out.println("Please enter student id");
-            try
-            {
-                studentID = keyboard.nextInt();
-            }
-            catch(InputMismatchException e)
-            {
-                System.out.println("Please enter numbers only...");
-            }
-        }
-    }
-
-
-
-}
 }

@@ -1,4 +1,4 @@
-package com.dkit.oopca5.core;
+package com.dkit.oopca5.client;
 
 //Berk Tatar D00225745 and Emmanuel Francis D00228281
 
@@ -6,8 +6,6 @@ package com.dkit.oopca5.core;
 public enum MainMenu
 {
     QUIT_APPLICATION,
-    LOG_IN,
-    DISPLAY_STUDENT_MENU,
-    DISPLAY_COURSE_MENU;
-
+    REGISTER,
+    LOG_IN
 }
