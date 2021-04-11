@@ -5,6 +5,9 @@ import java.util.List;
 import com.dkit.oopca5.core.User;
 import com.dkit.oopca5.exception.DaoException;
 
+//Berk Tatar D00225745
+
+
 public interface UserDaoInterface
 {
     public List<User> findAllUsers() throws DaoException;

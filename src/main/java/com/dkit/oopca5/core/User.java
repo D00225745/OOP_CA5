@@ -1,5 +1,8 @@
 package com.dkit.oopca5.core;
 
+//Berk Tatar D00225745
+
+
 public class User
 {
 

@@ -5,7 +5,7 @@ package com.dkit.oopca5.server;
  The server should listen for connections and once a connection is accepted it should spawn a new CAOClientHandler thread to deal with that connection. The server then returns to listening
  */
 
-//Berk Tatar D00225745 and Emmanuel Francis D00228281
+//Berk Tatar D00225745
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;

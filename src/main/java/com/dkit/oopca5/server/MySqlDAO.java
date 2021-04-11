@@ -4,7 +4,7 @@ package com.dkit.oopca5.server;
 All of the database functionality should be here. You will need a DAO for each table that you are interacting with in the database
  */
 
-//Berk Tatar D00225745 and Emmanuel Francis D00228281
+//Berk Tatar D00225745
 
 import java.sql.Connection;
 import java.sql.DriverManager;

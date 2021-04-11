@@ -2,6 +2,9 @@ package com.dkit.oopca5.core;
 
 import java.util.Objects;
 
+//Berk Tatar D00225745
+
+
 public class Student
 {
     private String name;

@@ -1,6 +1,6 @@
 package com.dkit.oopca5.client;
 
-//Berk Tatar D00225745 and Emmanuel Francis D00228281
+//Berk Tatar D00225745
 
 
 public enum MainMenu

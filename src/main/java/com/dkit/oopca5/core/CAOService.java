@@ -3,7 +3,7 @@ package com.dkit.oopca5.core;
 /* The CAOService class has constants to define all of the messages that are sent between the Client and Server
  */
 
-//Berk Tatar D00225745 and Emmanuel Francis D00228281
+//Berk Tatar D00225745
 
 
 public class CAOService
