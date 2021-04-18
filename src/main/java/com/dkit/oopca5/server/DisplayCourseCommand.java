@@ -8,7 +8,7 @@ import com.dkit.oopca5.core.Course;
 import com.dkit.oopca5.core.Student;
 import com.dkit.oopca5.core.TaskDatabase;
 import com.dkit.oopca5.dao.CourseDAO;
-import com.oopca5.dao.LoginDAO;
+import com.dkit.oopca5.dao.LoginDAO;
 
 public class DisplayCourseCommand implements ICommand
 {

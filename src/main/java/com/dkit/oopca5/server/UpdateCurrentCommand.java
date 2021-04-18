@@ -4,8 +4,8 @@ package com.dkit.oopca5.server;
 import com.dkit.oopca5.core.CAOService;
 import com.dkit.oopca5.core.Student;
 import com.dkit.oopca5.core.TaskDatabase;
-import com.oopca5.dao.CourseDAO;
-import com.oopca5.dao.RegisterDAO;
+import com.dkit.oopca5.dao.CourseDAO;
+import com.dkit.oopca5.dao.RegisterDAO;
 
 public class UpdateCurrentCommand implements ICommand {
 

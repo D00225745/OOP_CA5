@@ -6,7 +6,7 @@ import java.util.List;
 import com.dkit.oopca5.core.CAOService;
 import com.dkit.oopca5.core.Course;
 import com.dkit.oopca5.core.TaskDatabase;
-import com.oopca5.dao.CourseDAO;
+import com.dkit.oopca5.dao.CourseDAO;
 
 public class DisplayCurrentCommand implements ICommand {
 

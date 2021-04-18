@@ -5,8 +5,8 @@ import com.dkit.oopca5.core.CAOService;
 import com.dkit.oopca5.core.Student;
 import com.dkit.oopca5.core.TaskDatabase;
 import com.dkit.oopca5.server.ICommand;
-import com.oopca5.dao.LoginDAO;
-import com.oopca5.dao.RegisterDAO;
+import com.dkit.oopca5.dao.LoginDAO;
+import com.dkit.oopca5.dao.RegisterDAO;
 
 public class LoginCommand implements ICommand
 {
