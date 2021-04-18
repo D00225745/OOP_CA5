@@ -2,8 +2,8 @@ package com.dkit.oopca5.server;
 
 
 import com.dkit.oopca5.core.Task;
-import com.dkit.gd2.johnloane.core.TaskDatabase;
-import com.dkit.gd2.johnloane.core.CAOService;
+import com.dkit.oopca5.core.TaskDatabase;
+import com.dkit.oopca5.core.CAOService;
 
 public class RemoveCommand implements ICommand
 {
