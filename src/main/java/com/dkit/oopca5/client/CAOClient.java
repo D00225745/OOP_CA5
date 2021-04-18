@@ -1,3 +1,6 @@
+package com.dkit.oopca5.client;
+
+// Clear Client - can be used to test any server
 
 import java.io.IOException;
 import java.util.regex.*;
@@ -7,7 +10,7 @@ import java.net.UnknownHostException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-import org.omg.CORBA.RepositoryIdHelper;
+
 
 import com.dkit.oopca5.core.CAOService;
 
